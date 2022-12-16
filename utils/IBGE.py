@@ -1,5 +1,13 @@
+import json
+
 import requests
 
-res = requests.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados/{pe}/mesorregioes').text
 
-print(res.format())
+def buscar_dados():
+    res = requests.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados/26/municipios')
+    todo = json.loads(res.text)
+
+    for i in range(0,185):
+        print(f"('{todo[i]['id']}','{todo[i]['nome']}'),")
+
+buscar_dados()
