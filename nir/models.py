@@ -8,7 +8,7 @@ class Transferencia(models.Model):
     date_reg_transf = models.DateTimeField(blank=True, default='',null=True)
     date_transf = models.DateTimeField()
     pac = models.CharField(max_length=50)
-    data_nasc = models.DateTimeField()
+    data_nasc = models.DateField()
     mtv_dgt = models.TextField()
     dest = models.CharField(max_length=5)
     munic = models.CharField(choices=lista_municipio, max_length=50)
