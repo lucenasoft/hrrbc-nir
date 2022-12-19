@@ -8,6 +8,7 @@ from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
                               render)
 from django.urls import reverse
 
+from nir.actions.export_xlsx import export_xlsx
 from nir.models import (Transferencias_Adu, Transferencias_Ges,
                         Transferencias_Ped)
 
@@ -89,3 +90,31 @@ def logout_view(request):
 
     logout(request)
     return redirect(reverse('login'))
+
+def exportar_adul_xlsx(request):
+    MDATA = datetime.now().strftime('%Y-%m-%d')
+    model = 'Transferencias_Adu'
+    filename = 'lista_trasnf_adul.xls'
+    _filename = filename.split('.')
+    filename_final = f'{_filename[0]}_{MDATA}.{_filename[1]}'
+    queryset = Transferencias_Adu.objects.all().values_list(
+        'date_reg_transf',
+        'date_transf',
+        'pac',
+        'data_nasc',
+        'mtv_dgt',
+        'dest',
+        'munic',
+        'espec',
+        'scd',
+        'acomp',
+        'ambul',
+        'local_ambul',
+        'contref',
+        'obs',
+        'author__first_name',
+        'author_reg',
+    )
+    columns = ('DATA REG TRANSFERÊNCIA','DATA TRANSFERÊNCIA','PACIENTE','DATA NASCIMENTO','MOTIVO/DIAGNOSTICO','DESTINO','MUNICÍPIO','ESPECIALIDADE','SENHA CENTRAL DE LEITOS','ACOMPANHAMENTO','AMBULÂNCIA','LOCAL AMBULÂNCIA','CONTRAREFERENCIA','OBS','REGISTRADOR','DATA DO REGISTRO',)
+    response = export_xlsx(model, filename_final, queryset, columns)
+    return response

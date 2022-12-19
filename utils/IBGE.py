@@ -8,6 +8,6 @@ def buscar_dados():
     todo = json.loads(res.text)
 
     for i in range(0,185):
-        print(f"('{todo[i]['id']}','{todo[i]['nome']}'),")
+        print(f"('{todo[i]['nome']}','{todo[i]['nome']}'),")
 
 buscar_dados()

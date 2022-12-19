@@ -1,0 +1,135 @@
+.c-container {
+    max-width: 1000px;
+    margin: auto;
+    margin-top: 80px;
+}
+
+.c-container ul {
+    background-color: white;
+    list-style-type: none;
+    display: flex;
+    padding: 0px 0px 0px 0px;
+    border: 1px solid rgb(110, 109, 109);
+    margin: auto;
+}
+
+.c-container li {
+    margin: auto;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.head-crud {
+    border-radius: 5px 5px 0px 0px;
+}
+
+.head-crud li{
+    padding: 20px;
+}
+
+.btn-add-crud, .btn-edit-crud{
+    display: flex;
+    background-color: transparent;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.btn-edit-crud {
+    display: flex;
+    width: 20px;
+    margin: auto;
+    justify-content: center;
+}
+
+.btn-add-crud span{
+    display: flex;
+    margin: -30px auto;
+}
+
+.btn-add-crud button {
+    height: 40px;
+}
+
+.btn-edit-crud span {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-add-crud button, .btn-edit-crud button{
+    background-color: green;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 11px 5px 11px;
+    transition: ease-in-out 0.20s;
+}
+
+.btn-add-crud button:hover, .btn-edit-crud button:hover {
+    filter: drop-shadow(0px 0px 3px rgb(49, 49, 49));
+}
+
+.btn-add-crud a, .btn-edit-crud a{
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    padding: 10px 23px 10px 23px;
+}
+
+.btn-edit-crud a {
+    margin: 0;
+    padding: 0;
+}
+
+.btn-edit-crud button {
+    display: flex;
+    margin-left: 3px;
+    height: 35px;
+    background-color: rgba(255, 178, 11, 0.829);
+}
+
+.btn-view button {
+    max-height: 40px;
+    margin-left: 3px;
+    background-color: green;
+}
+
+.btn-view img{
+    display: flex;
+    max-width: 23px;
+}
+
+.btn-view a {
+    padding: 0;
+    margin: 0;
+}
+
+.input-search {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.input-search input {
+    border: none;
+    padding: 10px;
+    border-radius: 5px 0px 0px 5px;
+    
+}
+
+.input-search button {
+    padding: 10px;
+    background-color: #fafafa;
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+    margin-left: -10px;
+}
+
+.input-search i {
+    background-color: #fafafa;
+    color: #1893cc;
+    cursor: pointer;
+    border-radius: 0px 5px 5px 0px;
+}

@@ -45,12 +45,12 @@ class Transferencias_Adu(models.Model):
     espec = models.CharField(max_length=50)
     scd = models.IntegerField()
     ch_y_n = (
-        ('S', 'Sim'),
-        ('N', 'Não'),
+        ('Sim','Sim'),
+        ('Não', 'Não'),
     )
     ch_amb = (
-        ('S','UTI'),
-        ('N','BÁSICA')
+        ('UTI','UTI'),
+        ('BÁSICA','BÁSICA')
     )
     acomp = models.CharField(choices=ch_y_n, max_length=10)
     ambul = models.CharField(choices=ch_amb, max_length=20)
