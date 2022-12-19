@@ -98,10 +98,10 @@ def exportar_adul_xlsx(request):
     _filename = filename.split('.')
     filename_final = f'{_filename[0]}_{MDATA}.{_filename[1]}'
     queryset = Transferencias_Adu.objects.all().values_list(
-        'date_reg_transf',
-        'date_transf',
+        'date_reg_transf', #0 - DATETIME
+        'date_transf', #1 - DATETIME
         'pac',
-        'data_nasc',
+        'data_nasc', #3 - DATE
         'mtv_dgt',
         'dest',
         'munic',
@@ -113,7 +113,7 @@ def exportar_adul_xlsx(request):
         'contref',
         'obs',
         'author__first_name',
-        'author_reg',
+        'author_reg', #15 - DATETIME
     )
     columns = ('DATA REG TRANSFERÊNCIA','DATA TRANSFERÊNCIA','PACIENTE','DATA NASCIMENTO','MOTIVO/DIAGNOSTICO','DESTINO','MUNICÍPIO','ESPECIALIDADE','SENHA CENTRAL DE LEITOS','ACOMPANHAMENTO','AMBULÂNCIA','LOCAL AMBULÂNCIA','CONTRAREFERENCIA','OBS','REGISTRADOR','DATA DO REGISTRO',)
     response = export_xlsx(model, filename_final, queryset, columns)

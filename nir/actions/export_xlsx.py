@@ -28,7 +28,41 @@ def export_xlsx(model, filename, queryset, columns):
         row_num += 1
         for col, val in enumerate(rowdata):
             if col == 0:
-                val = 'NÃO INFORMADO'
+                b = str(val)
+                
+                if b == 'None':
+                    val = 'NÃO INFORMADO'
+                else:
+                    val = str(val).split()
+                    date = val[0].split('-')
+                    date_ = date[3::-1]
+                    hours = val[1][0:8]
+                    convert_hours = int(hours[0:2]) - 3
+                    val = f'{"/".join(date_)} {convert_hours}:{hours[3:8]}'
+                
+                
+            if col == 1:
+                val = str(val).split()
+                date = val[0].split('-')
+                date_ = date[3::-1]
+                hours = val[1][0:8]
+                convert_hours = int(hours[0:2]) - 3
+                val = f'{"/".join(date_)} {convert_hours}:{hours[3:8]}'
+
+            if col == 3:
+                val = str(val).split()
+                date = val[0].split('-')
+                date_ = date[3::-1]
+                val = f'{"/".join(date_)}'
+
+            if col == 15:
+                val = str(val).split()
+                date = val[0].split('-')
+                date_ = date[3::-1]
+                hours = val[1][0:8]
+                convert_hours = int(hours[0:2]) - 3
+                val = f'{"/".join(date_)} {convert_hours}:{hours[3:8]}'
+
             ws.write(row_num, col, str(val), default_style)
 
     wb.save(response)
