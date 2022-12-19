@@ -22,11 +22,11 @@ Sistema para registro de paciêntes transferidos, com gerador de lavantamento e 
 - Modelagem views para dashboard - X
 - Modelagem menu - X
 - Modelagem Crud - X
-- Botão Exportar dados para Excel - 
+- Botão Exportar dados para Excel - X
 - VIEW para adicionar transferência - 
 - VIEW para editar transferência - 
 - VIEW para ver transferência - 
-- Search para no dashboard - 
+- Search para cada campo no dashboard - 
 
 
 ## Atualizações obrigatórias

@@ -9,6 +9,7 @@ from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
 from django.urls import reverse
 
 from nir.actions.export_xlsx import export_xlsx
+from nir.forms.transfers_form import FormAdul, FormGes, FormPed
 from nir.models import (Transferencias_Adu, Transferencias_Ges,
                         Transferencias_Ped)
 
@@ -81,6 +82,28 @@ def dashboard_ges(request):
     })
 
 @login_required(login_url='login', redirect_field_name='next')
+def dashboard_transf_new(request):
+    form = FormAdul(
+        data=request.POST or None,
+        files=request.FILES or None,
+    )
+
+    if form.is_valid():
+        transf: Transferencias_Adu = form.save(commit=False)
+
+        transf.author = request.user
+        transf.author_reg = datetime.now()
+
+        transf.save()
+
+        messages.success(request,'Transferência registrada!')
+        return redirect(reverse('dashboard')) #LEMBRAR DE REDIRECIONAR PARA O CANTO DE CADA UM
+    
+    return render(request, 'new_called.html', context= {
+        'form': form #CRIAR O TEMPLATE DAQUI
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
 def logout_view(request):
     if not request.POST:
         return redirect(reverse('login'))
@@ -91,13 +114,72 @@ def logout_view(request):
     logout(request)
     return redirect(reverse('login'))
 
+@login_required(login_url='login', redirect_field_name='next')
 def exportar_adul_xlsx(request):
-    MDATA = datetime.now().strftime('%Y-%m-%d')
+    MDATA = datetime.now().strftime('%d-%m-%Y')
     model = 'Transferencias_Adu'
-    filename = 'lista_trasnf_adul.xls'
+    filename = 'TRANSFERÊNCIAS ADULTOS.xls'
     _filename = filename.split('.')
-    filename_final = f'{_filename[0]}_{MDATA}.{_filename[1]}'
+    filename_final = f'{_filename[0]} {MDATA}.{_filename[1]}'
     queryset = Transferencias_Adu.objects.all().values_list(
+        'date_reg_transf', #0 - DATETIME
+        'date_transf', #1 - DATETIME
+        'pac',
+        'data_nasc', #3 - DATE
+        'mtv_dgt',
+        'dest',
+        'munic',
+        'espec',
+        'scd',
+        'acomp',
+        'ambul',
+        'local_ambul',
+        'contref',
+        'obs',
+        'author__first_name',
+        'author_reg', #15 - DATETIME
+    )
+    columns = ('DATA REG TRANSFERÊNCIA','DATA TRANSFERÊNCIA','PACIENTE','DATA NASCIMENTO','MOTIVO/DIAGNOSTICO','DESTINO','MUNICÍPIO','ESPECIALIDADE','SENHA CENTRAL DE LEITOS','ACOMPANHAMENTO','AMBULÂNCIA','LOCAL AMBULÂNCIA','CONTRAREFERENCIA','OBS','REGISTRADOR','DATA DO REGISTRO',)
+    response = export_xlsx(model, filename_final, queryset, columns)
+    return response
+
+@login_required(login_url='login', redirect_field_name='next')
+def exportar_ges_xlsx(request):
+    MDATA = datetime.now().strftime('%d-%m-%Y')
+    model = 'Transferencias_Ges'
+    filename = 'TRANSFERÊNCIAS GESTANTES.xls'
+    _filename = filename.split('.')
+    filename_final = f'{_filename[0]} {MDATA}.{_filename[1]}'
+    queryset = Transferencias_Ges.objects.all().values_list(
+        'date_reg_transf', #0 - DATETIME
+        'date_transf', #1 - DATETIME
+        'pac',
+        'data_nasc', #3 - DATE
+        'mtv_dgt',
+        'dest',
+        'munic',
+        'espec',
+        'scd',
+        'acomp',
+        'ambul',
+        'local_ambul',
+        'contref',
+        'obs',
+        'author__first_name',
+        'author_reg', #15 - DATETIME
+    )
+    columns = ('DATA REG TRANSFERÊNCIA','DATA TRANSFERÊNCIA','PACIENTE','DATA NASCIMENTO','MOTIVO/DIAGNOSTICO','DESTINO','MUNICÍPIO','ESPECIALIDADE','SENHA CENTRAL DE LEITOS','ACOMPANHAMENTO','AMBULÂNCIA','LOCAL AMBULÂNCIA','CONTRAREFERENCIA','OBS','REGISTRADOR','DATA DO REGISTRO',)
+    response = export_xlsx(model, filename_final, queryset, columns)
+    return response
+
+@login_required(login_url='login', redirect_field_name='next')
+def exportar_ped_xlsx(request):
+    MDATA = datetime.now().strftime('%d-%m-%Y')
+    model = 'Transferencias_Ped'
+    filename = 'TRANSFERÊNCIAS PEDIATRIA.xls'
+    _filename = filename.split('.')
+    filename_final = f'{_filename[0]} {MDATA}.{_filename[1]}'
+    queryset = Transferencias_Ped.objects.all().values_list(
         'date_reg_transf', #0 - DATETIME
         'date_transf', #1 - DATETIME
         'pac',

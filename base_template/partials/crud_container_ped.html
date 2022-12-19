@@ -1,0 +1,69 @@
+{% load static %}
+<div class="c-container">
+    {% if request.user.is_authenticated %}
+    <div class="btn-add-crud">
+        <button type="submit"><a href="$">ADD</a></button>
+        <button type="submit"><a href="{%url 'export_xlsx_ped' %}"><span class="material-symbols-outlined">
+                    export_notes
+                </span></a></button>
+    </div>
+    {% endif %}
+    <ul class='head-crud'>
+        <li>
+            Paciente
+        </li>
+        <li>
+            Data Transferência
+        </li>
+        <li>
+            Senha CDL
+        </li>
+        <li>
+            Ações
+        </li>
+    </ul>
+    <ul class="search-title">
+        <li>
+            <form action="." method="GET">
+                <input type="search" name="search">
+            </form>
+        </li>
+        <li>
+            <form action="." method="GET">
+                <input type="search" name="search">
+            </form>
+        </li>
+        <li>
+            <form action="." method="GET">
+                <input type="search" name="search">
+            </form>
+        </li>
+        <li>
+        </li>
+    </ul>
+    {% for transfer in transfers %}
+    <ul>
+        <li>
+            {{transfer.pac}}
+        </li>
+        <li>
+            {{transfer.date_transf}}
+        </li>
+        <li>
+            {{transfer.scd}}
+        </li>
+        <li>
+            <div class="btn-edit-crud">
+                <button type="submit"><a href="#">
+                        <span class="material-symbols-outlined">
+                            edit_note
+                        </span>
+                    </a></button>
+                <div class="btn-view">
+                    <button type="submit"><a href="#"><img src="{% static 'view.svg' %}" alt=""></a></button>
+                </div>
+            </div>
+        </li>
+    </ul>
+    {% endfor %}
+</div>
