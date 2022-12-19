@@ -1,0 +1,31 @@
+{% load static %}
+<div id="menu">
+    <nav>
+        <img class='logo' src="{% static 'logo.svg' %}" alt="">
+        <a href="{% url 'dashboard' %}">
+            <span class="material-symbols-outlined">
+                grid_view
+            </span>
+            Adulto
+        </a>
+        <a href="{% url 'dashboard_ped' %}">
+            <span class="material-symbols-outlined">
+                public
+            </span>
+            Pediatria
+        </a>
+        <a href="{% url 'dashboard_ges' %}">
+            <span class="material-symbols-outlined">
+                list_alt
+            </span>
+            Gestante
+        </a>
+    </nav>
+    <form action="{%url 'logout' %}" method='POST'>
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{request.user.username}}">
+        <button type="submit">
+            <img src="{% static 'ttt.png' %}" alt="logout">
+        </button>
+    </form>
+</div>

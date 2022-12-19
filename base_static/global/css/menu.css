@@ -1,0 +1,60 @@
+/* CSS PARA MENU */ 
+
+#menu {
+    background-color: white;
+    max-height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+#menu nav {
+    display: flex;
+    margin-left: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+#menu img {
+    max-width: 40px;
+    cursor: pointer;
+    
+}
+
+#menu span {
+    display: flex;
+}
+
+#menu button {
+    display: flex;
+    border: none;
+    background-color: white;
+    margin-right: 100px;
+    max-width: 40px;
+    transition:all 0.4s ease-in-out;
+}
+
+#menu button:hover {
+    transform: scale(1.10);
+}
+
+#menu a {
+    display: flex;
+    padding: 5px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+    margin-left: 13px;
+    border-radius: 5px;
+    transition:all 0.4s ease-in-out;
+    font-weight: bold;
+}
+
+#menu a:hover {
+    transform: scale(1.05);
+}
+
+.logo {
+    filter: drop-shadow(0px 0px 1px black);
+}

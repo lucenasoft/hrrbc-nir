@@ -42,3 +42,50 @@ def login_create(request):
             messages.error(request, 'Login ou senha incorretos.')
 
     return redirect(login_url)
+
+@login_required(login_url='login', redirect_field_name='next')
+def dashboard(request):
+    transfer = Transferencias_Adu.objects.filter(
+    author=request.user
+    ).order_by('-id')
+    #search = request.GET.get('search')
+    #if search:
+        #called = called.filter(user_requester__icontains=f'{search}')
+    return render(request, 'dashboard.html', context={
+        'transfers': transfer,
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
+def dashboard_ped(request):
+    transfer = Transferencias_Ped.objects.filter(
+    author=request.user
+    ).order_by('-id')
+    #search = request.GET.get('search')
+    #if search:
+        #called = called.filter(user_requester__icontains=f'{search}')
+    return render(request, 'dashboard_ped.html', context={
+        'transfers': transfer,
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
+def dashboard_ges(request):
+    transfer = Transferencias_Ges.objects.filter(
+    author=request.user
+    ).order_by('-id')
+    #search = request.GET.get('search')
+    #if search:
+        #called = called.filter(user_requester__icontains=f'{search}')
+    return render(request, 'dashboard_ges.html', context={
+        'transfers': transfer,
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
+def logout_view(request):
+    if not request.POST:
+        return redirect(reverse('login'))
+
+    if request.POST.get('username') != request.user.username:
+        return redirect(reverse('login'))
+
+    logout(request)
+    return redirect(reverse('login'))
