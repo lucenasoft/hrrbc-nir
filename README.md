@@ -17,7 +17,7 @@ Sistema para registro de paciêntes transferidos, com gerador de lavantamento e 
 - Gerar projeto e app - X
 - Modular banco de dados com campos da planilha - X
 - Modelagem do banco - X
-- Modelagem e criação de pagina de login
+- Modelagem e criação de pagina de login - X
 
 
 ## Atualizações obrigatórias
