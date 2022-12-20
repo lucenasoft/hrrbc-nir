@@ -82,6 +82,13 @@ def dashboard_ges(request):
     })
 
 @login_required(login_url='login', redirect_field_name='next')
+def dashboard_transf_view(request, id):
+    transf = get_object_or_404(Transferencias_Adu, pk=id)
+    return render(request, 'transf_view.html', context={
+        'transf': transf,
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
 def dashboard_transf_new(request):
     form = FormAdul(
         data=request.POST or None,
@@ -99,8 +106,37 @@ def dashboard_transf_new(request):
         messages.success(request,'Transferência registrada!')
         return redirect(reverse('dashboard')) #LEMBRAR DE REDIRECIONAR PARA O CANTO DE CADA UM
     
-    return render(request, 'new_called.html', context= {
+    return render(request, 'new_transf.html', context= {
         'form': form #CRIAR O TEMPLATE DAQUI
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
+def dashboard_transf_edit(request, id):
+    transf = Transferencias_Adu.objects.get(
+        author=request.user,
+        pk=id,
+        
+    )
+
+    if not transf:
+        raise Http404()
+
+    form = FormAdul(
+        data=request.POST or None,
+        files=request.FILES or None,
+        instance=transf
+    )
+
+    if form.is_valid():
+        transf = form.save(commit=False)
+        transf.author = request.user
+        form.save()
+        messages.success(request,'Transferência alterada com sucesso!')
+        return redirect(reverse('dashboard'))
+
+    return render(request,'edit_transf.html', context={
+        'transf': transf,
+        'form': form,
     })
 
 @login_required(login_url='login', redirect_field_name='next')

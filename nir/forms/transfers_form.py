@@ -10,20 +10,7 @@ class FormAdul(forms.ModelForm):
 
     class Meta:
         model = Transferencias_Adu
-        fields = 'date_reg_transf', #0 - DATETIME
-        'date_transf', #1 - DATETIME
-        'pac',
-        'data_nasc', #3 - DATE
-        'mtv_dgt',
-        'dest',
-        'munic',
-        'espec',
-        'scd',
-        'acomp',
-        'ambul',
-        'local_ambul',
-        'contref',
-        'obs',
+        fields = 'date_reg_transf','date_transf','pac','data_nasc','mtv_dgt','dest','munic','espec','scd','acomp','ambul','local_ambul','contref','obs',
         labels = {
             'date_reg_transf':'Data REG Transferência: ',
             'date_transf':'Data Transferência: ',

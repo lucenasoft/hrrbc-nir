@@ -1,0 +1,38 @@
+.called-view-container {
+    background-color: white;
+    max-width: 800px;
+    margin: 50px auto;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.view {
+    margin: 0 auto;
+}
+
+.titulo-called p {
+    display: inline;
+    font-variant-caps: all-petite-caps;
+    font-size: larger;
+    text-decoration: underline;
+}
+
+.span-list {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.span-list span {
+    padding: 5px;
+}
+
+.describs-called {
+    padding: 20px;
+}
+
+.called-view-container h1,h2,h3,h4 {
+    text-align: center;
+    padding: 5px;
+    margin: 0;
+}
