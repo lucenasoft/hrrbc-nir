@@ -46,9 +46,7 @@ def login_create(request):
 
 @login_required(login_url='login', redirect_field_name='next')
 def dashboard(request):
-    transfer = Transferencias_Adu.objects.filter(
-    author=request.user
-    ).order_by('-id')
+    transfer = Transferencias_Adu.objects.all().order_by('-id')
     #search = request.GET.get('search')
     #if search:
         #called = called.filter(user_requester__icontains=f'{search}')
@@ -58,9 +56,7 @@ def dashboard(request):
 
 @login_required(login_url='login', redirect_field_name='next')
 def dashboard_ped(request):
-    transfer = Transferencias_Ped.objects.filter(
-    author=request.user
-    ).order_by('-id')
+    transfer = Transferencias_Ped.objects.all().order_by('-id')
     #search = request.GET.get('search')
     #if search:
         #called = called.filter(user_requester__icontains=f'{search}')
