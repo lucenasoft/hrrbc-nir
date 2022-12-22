@@ -37,3 +37,5 @@ Sistema para registro de paciêntes transferidos, com gerador de lavantamento e 
 ## Atualizações obrigatórias
 
 - Adicionar o anti-refresh nas paginas
+- Criar paginação conforme a quantidade de registros
+- Criar scroll conforme a quantidade de registros
