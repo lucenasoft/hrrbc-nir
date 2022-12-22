@@ -4,8 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
-                              render)
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from nir.actions.export_xlsx import export_xlsx
@@ -89,6 +88,20 @@ def dashboard_transf_view(request, id):
     })
 
 @login_required(login_url='login', redirect_field_name='next')
+def ped_transf_view(request, id):
+    transf = get_object_or_404(Transferencias_Ped, pk=id)
+    return render(request, 'transf_view.html', context={
+        'transf': transf,
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
+def ges_transf_view(request, id):
+    transf = get_object_or_404(Transferencias_Ges, pk=id)
+    return render(request, 'transf_view.html', context={
+        'transf': transf,
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
 def dashboard_transf_new(request):
     form = FormAdul(
         data=request.POST or None,
@@ -105,6 +118,50 @@ def dashboard_transf_new(request):
 
         messages.success(request,'Transferência registrada!')
         return redirect(reverse('dashboard')) #LEMBRAR DE REDIRECIONAR PARA O CANTO DE CADA UM
+    
+    return render(request, 'new_transf.html', context= {
+        'form': form #CRIAR O TEMPLATE DAQUI
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
+def ped_transf_new(request):
+    form = FormPed(
+        data=request.POST or None,
+        files=request.FILES or None,
+    )
+
+    if form.is_valid():
+        transf: Transferencias_Ped = form.save(commit=False)
+
+        transf.author = request.user
+        transf.author_reg = datetime.now()
+
+        transf.save()
+
+        messages.success(request,'Transferência registrada!')
+        return redirect(reverse('dashboard_ped')) #LEMBRAR DE REDIRECIONAR PARA O CANTO DE CADA UM
+    
+    return render(request, 'new_transf.html', context= {
+        'form': form #CRIAR O TEMPLATE DAQUI
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
+def ges_transf_new(request):
+    form = FormGes(
+        data=request.POST or None,
+        files=request.FILES or None,
+    )
+
+    if form.is_valid():
+        transf: Transferencias_Ges = form.save(commit=False)
+
+        transf.author = request.user
+        transf.author_reg = datetime.now()
+
+        transf.save()
+
+        messages.success(request,'Transferência registrada!')
+        return redirect(reverse('dashboard_ges')) #LEMBRAR DE REDIRECIONAR PARA O CANTO DE CADA UM
     
     return render(request, 'new_transf.html', context= {
         'form': form #CRIAR O TEMPLATE DAQUI
@@ -133,6 +190,64 @@ def dashboard_transf_edit(request, id):
         form.save()
         messages.success(request,'Transferência alterada com sucesso!')
         return redirect(reverse('dashboard'))
+
+    return render(request,'edit_transf.html', context={
+        'transf': transf,
+        'form': form,
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
+def ges_transf_edit(request, id):
+    transf = Transferencias_Ges.objects.get(
+        author=request.user,
+        pk=id,
+        
+    )
+
+    if not transf:
+        raise Http404()
+
+    form = FormGes(
+        data=request.POST or None,
+        files=request.FILES or None,
+        instance=transf
+    )
+
+    if form.is_valid():
+        transf = form.save(commit=False)
+        transf.author = request.user
+        form.save()
+        messages.success(request,'Transferência alterada com sucesso!')
+        return redirect(reverse('dashboard_ges'))
+
+    return render(request,'edit_transf.html', context={
+        'transf': transf,
+        'form': form,
+    })
+
+@login_required(login_url='login', redirect_field_name='next')
+def ped_transf_edit(request, id):
+    transf = Transferencias_Ped.objects.get(
+        author=request.user,
+        pk=id,
+        
+    )
+
+    if not transf:
+        raise Http404()
+
+    form = FormPed(
+        data=request.POST or None,
+        files=request.FILES or None,
+        instance=transf
+    )
+
+    if form.is_valid():
+        transf = form.save(commit=False)
+        transf.author = request.user
+        form.save()
+        messages.success(request,'Transferência alterada com sucesso!')
+        return redirect(reverse('dashboard_ped'))
 
     return render(request,'edit_transf.html', context={
         'transf': transf,

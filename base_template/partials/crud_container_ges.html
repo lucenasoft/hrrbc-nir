@@ -2,7 +2,7 @@
 <div class="c-container">
     {% if request.user.is_authenticated %}
     <div class="btn-add-crud">
-        <button type="submit"><a href="$">ADD</a></button>
+        <button type="submit"><a href="{%url 'transf_ges_new' %}">ADD</a></button>
         <button type="submit"><a href="{%url 'export_xlsx_ges' %}"><span class="material-symbols-outlined">
                     export_notes
                 </span></a></button>
@@ -54,13 +54,14 @@
         </li>
         <li>
             <div class="btn-edit-crud">
-                <button type="submit"><a href="#">
+                <button type="submit"><a href="{%url 'transf_ges_edit' transfer.id %}">
                         <span class="material-symbols-outlined">
                             edit_note
                         </span>
                     </a></button>
                 <div class="btn-view">
-                    <button type="submit"><a href="#"><img src="{% static 'view.svg' %}" alt=""></a></button>
+                    <button type="submit"><a href="{%url 'transf_ges_edit' transfer.id %}"><img
+                                src="{% static 'view.svg' %}" alt=""></a></button>
                 </div>
             </div>
         </li>
