@@ -47,9 +47,15 @@ def login_create(request):
 @login_required(login_url='login', redirect_field_name='next')
 def dashboard(request):
     transfer = Transferencias_Adu.objects.all().order_by('-id')
-    #search = request.GET.get('search')
-    #if search:
-        #called = called.filter(user_requester__icontains=f'{search}')
+    pac_search = request.GET.get('pac')
+    date_search = request.GET.get('date')
+    scd = request.GET.get('scd')
+    if pac_search:
+        transfer = transfer.filter(pac__icontains=f'{pac_search}')
+    if date_search:
+        transfer = transfer.filter(date_transf__icontains=f'{date_search}')
+    if scd:
+        transfer = transfer.filter(scd__icontains=f'{scd}')
     return render(request, 'dashboard.html', context={
         'transfers': transfer,
     })
@@ -57,21 +63,31 @@ def dashboard(request):
 @login_required(login_url='login', redirect_field_name='next')
 def dashboard_ped(request):
     transfer = Transferencias_Ped.objects.all().order_by('-id')
-    #search = request.GET.get('search')
-    #if search:
-        #called = called.filter(user_requester__icontains=f'{search}')
+    pac_search = request.GET.get('pac')
+    date_search = request.GET.get('date')
+    scd = request.GET.get('scd')
+    if pac_search:
+        transfer = transfer.filter(pac__icontains=f'{pac_search}')
+    if date_search:
+        transfer = transfer.filter(date_transf__icontains=f'{date_search}')
+    if scd:
+        transfer = transfer.filter(scd__icontains=f'{scd}')
     return render(request, 'dashboard_ped.html', context={
         'transfers': transfer,
     })
 
 @login_required(login_url='login', redirect_field_name='next')
 def dashboard_ges(request):
-    transfer = Transferencias_Ges.objects.filter(
-    author=request.user
-    ).order_by('-id')
-    #search = request.GET.get('search')
-    #if search:
-        #called = called.filter(user_requester__icontains=f'{search}')
+    transfer = Transferencias_Ges.objects.all().order_by('-id')
+    pac_search = request.GET.get('pac')
+    date_search = request.GET.get('date')
+    scd = request.GET.get('scd')
+    if pac_search:
+        transfer = transfer.filter(pac__icontains=f'{pac_search}')
+    if date_search:
+        transfer = transfer.filter(date_transf__icontains=f'{date_search}')
+    if scd:
+        transfer = transfer.filter(scd__icontains=f'{scd}')
     return render(request, 'dashboard_ges.html', context={
         'transfers': transfer,
     })
@@ -166,9 +182,7 @@ def ges_transf_new(request):
 @login_required(login_url='login', redirect_field_name='next')
 def dashboard_transf_edit(request, id):
     transf = Transferencias_Adu.objects.get(
-        author=request.user,
         pk=id,
-        
     )
 
     if not transf:
@@ -182,7 +196,6 @@ def dashboard_transf_edit(request, id):
 
     if form.is_valid():
         transf = form.save(commit=False)
-        transf.author = request.user
         form.save()
         messages.success(request,'Transferência alterada com sucesso!')
         return redirect(reverse('dashboard'))
@@ -195,9 +208,7 @@ def dashboard_transf_edit(request, id):
 @login_required(login_url='login', redirect_field_name='next')
 def ges_transf_edit(request, id):
     transf = Transferencias_Ges.objects.get(
-        author=request.user,
         pk=id,
-        
     )
 
     if not transf:
@@ -211,7 +222,6 @@ def ges_transf_edit(request, id):
 
     if form.is_valid():
         transf = form.save(commit=False)
-        transf.author = request.user
         form.save()
         messages.success(request,'Transferência alterada com sucesso!')
         return redirect(reverse('dashboard_ges'))
@@ -224,9 +234,7 @@ def ges_transf_edit(request, id):
 @login_required(login_url='login', redirect_field_name='next')
 def ped_transf_edit(request, id):
     transf = Transferencias_Ped.objects.get(
-        author=request.user,
-        pk=id,
-        
+        pk=id,  
     )
 
     if not transf:
@@ -240,7 +248,6 @@ def ped_transf_edit(request, id):
 
     if form.is_valid():
         transf = form.save(commit=False)
-        transf.author = request.user
         form.save()
         messages.success(request,'Transferência alterada com sucesso!')
         return redirect(reverse('dashboard_ped'))
@@ -262,9 +269,8 @@ def logout_view(request):
     return redirect(reverse('login'))
 
 @login_required(login_url='login', redirect_field_name='next')
-def exportar_adul_xlsx(request):
+def exportar_xls(request):
     MDATA = datetime.now().strftime('%d-%m-%Y')
-    model = 'Transferencias_Adu'
     filename = 'TRANSFERÊNCIAS ADULTOS.xls'
     _filename = filename.split('.')
     filename_final = f'{_filename[0]} {MDATA}.{_filename[1]}'
@@ -286,18 +292,25 @@ def exportar_adul_xlsx(request):
         'author__first_name',
         'author_reg', #15 - DATETIME
     )
-    columns = ('DATA REG TRANSFERÊNCIA','DATA TRANSFERÊNCIA','PACIENTE','DATA NASCIMENTO','MOTIVO/DIAGNOSTICO','DESTINO','MUNICÍPIO','ESPECIALIDADE','SENHA CENTRAL DE LEITOS','ACOMPANHAMENTO','AMBULÂNCIA','LOCAL AMBULÂNCIA','CONTRAREFERENCIA','OBS','REGISTRADOR','DATA DO REGISTRO',)
-    response = export_xlsx(model, filename_final, queryset, columns)
-    return response
-
-@login_required(login_url='login', redirect_field_name='next')
-def exportar_ges_xlsx(request):
-    MDATA = datetime.now().strftime('%d-%m-%Y')
-    model = 'Transferencias_Ges'
-    filename = 'TRANSFERÊNCIAS GESTANTES.xls'
-    _filename = filename.split('.')
-    filename_final = f'{_filename[0]} {MDATA}.{_filename[1]}'
-    queryset = Transferencias_Ges.objects.all().values_list(
+    queryset2 = Transferencias_Ped.objects.all().values_list(
+        'date_reg_transf', #0 - DATETIME
+        'date_transf', #1 - DATETIME
+        'pac',
+        'data_nasc', #3 - DATE
+        'mtv_dgt',
+        'dest',
+        'munic',
+        'espec',
+        'scd',
+        'acomp',
+        'ambul',
+        'local_ambul',
+        'contref',
+        'obs',
+        'author__first_name',
+        'author_reg', #15 - DATETIME
+    )
+    queryset3 = Transferencias_Ges.objects.all().values_list(
         'date_reg_transf', #0 - DATETIME
         'date_transf', #1 - DATETIME
         'pac',
@@ -316,34 +329,44 @@ def exportar_ges_xlsx(request):
         'author_reg', #15 - DATETIME
     )
     columns = ('DATA REG TRANSFERÊNCIA','DATA TRANSFERÊNCIA','PACIENTE','DATA NASCIMENTO','MOTIVO/DIAGNOSTICO','DESTINO','MUNICÍPIO','ESPECIALIDADE','SENHA CENTRAL DE LEITOS','ACOMPANHAMENTO','AMBULÂNCIA','LOCAL AMBULÂNCIA','CONTRAREFERENCIA','OBS','REGISTRADOR','DATA DO REGISTRO',)
-    response = export_xlsx(model, filename_final, queryset, columns)
+    response = export_xlsx(filename_final, queryset, queryset2, queryset3, columns)
     return response
 
 @login_required(login_url='login', redirect_field_name='next')
-def exportar_ped_xlsx(request):
-    MDATA = datetime.now().strftime('%d-%m-%Y')
-    model = 'Transferencias_Ped'
-    filename = 'TRANSFERÊNCIAS PEDIATRIA.xls'
-    _filename = filename.split('.')
-    filename_final = f'{_filename[0]} {MDATA}.{_filename[1]}'
-    queryset = Transferencias_Ped.objects.all().values_list(
-        'date_reg_transf', #0 - DATETIME
-        'date_transf', #1 - DATETIME
-        'pac',
-        'data_nasc', #3 - DATE
-        'mtv_dgt',
-        'dest',
-        'munic',
-        'espec',
-        'scd',
-        'acomp',
-        'ambul',
-        'local_ambul',
-        'contref',
-        'obs',
-        'author__first_name',
-        'author_reg', #15 - DATETIME
-    )
-    columns = ('DATA REG TRANSFERÊNCIA','DATA TRANSFERÊNCIA','PACIENTE','DATA NASCIMENTO','MOTIVO/DIAGNOSTICO','DESTINO','MUNICÍPIO','ESPECIALIDADE','SENHA CENTRAL DE LEITOS','ACOMPANHAMENTO','AMBULÂNCIA','LOCAL AMBULÂNCIA','CONTRAREFERENCIA','OBS','REGISTRADOR','DATA DO REGISTRO',)
-    response = export_xlsx(model, filename_final, queryset, columns)
-    return response
+def dashboard_transf_delete(request,id):
+    transf = Transferencias_Adu.objects.filter(
+        pk=id,
+    ).first()
+
+    if not transf:
+        raise Http404()
+
+    transf.delete()
+    messages.success(request, 'Transferência deletada com sucesso.')
+    return redirect(reverse('dashboard'))
+
+@login_required(login_url='login', redirect_field_name='next')
+def dashboard_transf_ped_delete(request,id):
+    transf = Transferencias_Ped.objects.filter(
+        pk=id,
+    ).first()
+
+    if not transf:
+        raise Http404()
+
+    transf.delete()
+    messages.success(request, 'Transferência deletada com sucesso.')
+    return redirect(reverse('dashboard'))
+
+@login_required(login_url='login', redirect_field_name='next')
+def dashboard_transf_ges_delete(request,id):
+    transf = Transferencias_Ges.objects.filter(
+        pk=id,
+    ).first()
+
+    if not transf:
+        raise Http404()
+
+    transf.delete()
+    messages.success(request, 'Transferência deletada com sucesso.')
+    return redirect(reverse('dashboard'))

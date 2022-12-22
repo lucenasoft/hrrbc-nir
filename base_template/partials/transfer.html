@@ -10,16 +10,41 @@
     </form>
 </div>
 
-<div class="titulo-called">
-    <h1>{{transf.author.first_name}} </h1>
-</div>
 <div class="describs-called">
-    <h1>Defeito Relatado:</h1>
-    <p>{{called.call_defect}}</p>
-    <h1>Solução Aplicada:</h1>
-    <p>{{called.description}}</p>
-    <h1>Pendencias:</h1>
-    <p>{{called.pendencies}}</p>
-    <h1>Solução Aplicada em:</h1>
-    <p>{{called.appliedsolution}}</p>
+    <h1>Paciente:</h1>
+    <p>{{transf.pac}}</p>
+    <h1>Data de Registro de Transferência:</h1>
+    <p>{% if transf.date_reg_transf != None %}
+        {{transf.date_reg_transf}}
+        {% else %}
+        Não informado
+    {% endif %}</p>
+    <h1>Data de Transferência:</h1>
+    <p>{{transf.date_transf}}</p>
+    <h1>Data de Nascimento:</h1>
+    <p>{{transf.data_nasc}}</p>
+    <h1>Motivo/Diagnostico:</h1>
+    <p>{{transf.mtv_dgt}}</p>
+    <h1>Destino:</h1>
+    <p>{{transf.dest}}</p>
+    <h1>Município:</h1>
+    <p>{{transf.munic}}</p>
+    <h1>Especialidade:</h1>
+    <p>{{transf.espec}}</p>
+    <h1>Senha Central de Leitos:</h1>
+    <p>{{transf.scd}}</p>
+    <h1>Acompanhamento:</h1>
+    <p>{{transf.acomp}}</p>
+    <h1>Ambulância:</h1>
+    <p>{{transf.ambul}}</p>
+    <h1>Local da Ambulância:</h1>
+    <p>{{transf.local_ambul}}</p>
+    <h1>Contrareferência:</h1>
+    <p>{{transf.contref}}</p>
+    <h1>Obs:</h1>
+    <p>{{transf.obs}}</p>
+    <h1>Enfermeiro Cadastrante:</h1>
+    <p>{{transf.author}}</p>
+    <h1>Data do Cadastramento</h1>
+    <p>{{transf.author_reg}}</p>
 </div>

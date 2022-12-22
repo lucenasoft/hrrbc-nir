@@ -22,7 +22,8 @@ urlpatterns = [
     path('dashboard_ges/transf/<int:id>/edit/', views.ges_transf_edit, name='transf_ges_edit'),
     path('dashboard_ges/transf/new', views.ges_transf_new, name='transf_ges_new'),
     path('dashboard_ges/transf/<int:id>', views.ges_transf_view, name='transf_ges_view'),
-    path('export/xlsx_adul', views.exportar_adul_xlsx, name='export_xlsx_adul'),
-    path('export/xlsx_ped', views.exportar_ped_xlsx, name='export_xlsx_ped'),
-    path('export/xlsx_ges', views.exportar_ges_xlsx, name='export_xlsx_ges'),
+    path('dashboard/trasnf/<int:id>/delete', views.dashboard_transf_delete, name='trasnf_delete'),
+    path('dashboard/trasnf_ped/<int:id>/delete', views.dashboard_transf_ped_delete, name='trasnf_ped_delete'),
+    path('dashboard/trasnf_ges/<int:id>/delete', views.dashboard_transf_ges_delete, name='trasnf_ges_delete'),
+    path('export/xlsx', views.exportar_xls, name='export_xls'),
 ]

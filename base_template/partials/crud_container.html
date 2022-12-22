@@ -1,9 +1,8 @@
-{% load static %}
 <div class="c-container">
     {% if request.user.is_authenticated %}
     <div class="btn-add-crud">
         <button type="submit"><a href="{%url 'transf_new' %}">ADD</a></button>
-        <button type="submit"><a href="{%url 'export_xlsx_adul' %}"><span class="material-symbols-outlined">
+        <button type="submit"><a href="{%url 'export_xls' %}"><span class="material-symbols-outlined">
                     export_notes
                 </span></a></button>
     </div>
@@ -25,17 +24,17 @@
     <ul class="search-title">
         <li>
             <form action="." method="GET">
-                <input type="search" name="search">
+                <input type="search" name="pac">
             </form>
         </li>
         <li>
             <form action="." method="GET">
-                <input type="search" name="search">
+                <input type="search" name="date">
             </form>
         </li>
         <li>
             <form action="." method="GET">
-                <input type="search" name="search">
+                <input type="search" name="scd">
             </form>
         </li>
         <li>
@@ -54,15 +53,25 @@
         </li>
         <li>
             <div class="btn-edit-crud">
+                <div class="btn-view">
+                    <button type="submit"><a href="{%url 'dashboard_view' transfer.id %}">
+                            <span class="material-symbols-outlined">
+                                visibility
+                            </span>
+                        </a></button>
+                </div>
                 <button type="submit"><a href="{%url 'transf_edit' transfer.id %}">
                         <span class="material-symbols-outlined">
                             edit_note
                         </span>
                     </a></button>
-                <div class="btn-view">
-                    <button type="submit"><a href="{%url 'dashboard_view' transfer.id %}"><img
-                                src="{% static 'view.svg' %}" alt=""></a></button>
-                </div>
+                <form class="btn-delete form-delete" action="{% url 'trasnf_delete' transfer.id %}" method='POST'>
+                    {% csrf_token %}
+                    <button type="submit">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span></button>
+                </form>
             </div>
         </li>
     </ul>
