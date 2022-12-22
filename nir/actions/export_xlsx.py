@@ -76,6 +76,8 @@ def export_xlsx(filename, queryset, queryset2, queryset3, columns):
 
             ws.write(row_num, col, str(val), default_style)
 
+    row_num = 0
+
     for row, rowdata in enumerate(rows2):
         row_num += 1
         for col, val in enumerate(rowdata):
@@ -116,6 +118,8 @@ def export_xlsx(filename, queryset, queryset2, queryset3, columns):
                 val = f'{"/".join(date_)} {convert_hours}:{hours[3:8]}'
 
             wss.write(row_num, col, str(val), default_style)
+
+    row_num = 0
 
     for row, rowdata in enumerate(rows3):
         row_num += 1
