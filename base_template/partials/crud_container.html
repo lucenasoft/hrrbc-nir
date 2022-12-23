@@ -2,9 +2,13 @@
     {% if request.user.is_authenticated %}
     <div class="btn-add-crud">
         <button type="submit"><a href="{%url 'transf_new' %}">ADD</a></button>
-        <button type="submit"><a href="{%url 'export_xls' %}"><span class="material-symbols-outlined">
+        <form action="{%url 'export_xls' %}" method="POST">
+            {% csrf_token %}
+            <input type="month" name="data_xls" id="data_xls">
+            <button type="submit"><span class="material-symbols-outlined">
                     export_notes
-                </span></a></button>
+                </span></button>
+        </form>
     </div>
     {% endif %}
     <ul class='head-crud'>

@@ -30,7 +30,7 @@ Sistema para registro de paciêntes transferidos, com gerador de lavantamento e 
 - Modelar view transf front-end - X
 - Search para cada campo no dashboard - X
 - Exportar todas as tabelas do banco em um unico arquivo - X
-- Excel por mês - 
+- Excel por mês - X
 - Modificar campos de data - 
 
 

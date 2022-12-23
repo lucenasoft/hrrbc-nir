@@ -87,7 +87,7 @@
     display: flex;
     margin-left: 3px;
     height: 35px;
-    background-color: rgba(255, 178, 11, 0.829);
+    background-color: #5388B4;
 }
 
 .btn-view button {
@@ -109,7 +109,7 @@
 .btn-delete button {
     max-height: 40px;
     margin-left: 3px;
-    background-color: red;
+    background-color: rgb(180, 9, 9);
     cursor: pointer;
 }
 
@@ -140,4 +140,21 @@
     color: #1893cc;
     cursor: pointer;
     border-radius: 0px 5px 5px 0px;
+}
+
+.btn-add-crud form {
+    display: flex;
+}
+
+.btn-add-crud form input {
+    max-width: 160px;
+    font-size: 15px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.btn-add-crud form button {
+    display: flex;
+    align-items: center;
+    color: white;
 }

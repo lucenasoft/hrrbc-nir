@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -270,11 +270,16 @@ def logout_view(request):
 
 @login_required(login_url='login', redirect_field_name='next')
 def exportar_xls(request):
+    if request.method == 'POST':
+        date_xls_post = request.POST.get('data_xls')
+        date_xls_post = str(date_xls_post[5:7]).strip('0')
     MDATA = datetime.now().strftime('%d-%m-%Y')
     filename = 'TRANSFERÊNCIAS ADULTOS.xls'
     _filename = filename.split('.')
     filename_final = f'{_filename[0]} {MDATA}.{_filename[1]}'
-    queryset = Transferencias_Adu.objects.all().values_list(
+    start = date(2022, int(date_xls_post), 1)
+    end = date(2022, int(date_xls_post), 31)
+    queryset = Transferencias_Adu.objects.filter(date_transf__range=[start, end]).values_list(
         'date_reg_transf', #0 - DATETIME
         'date_transf', #1 - DATETIME
         'pac',
