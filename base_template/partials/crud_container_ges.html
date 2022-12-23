@@ -29,17 +29,17 @@
     <ul class="search-title">
         <li>
             <form action="." method="GET">
-                <input type="search" name="pac">
+                <input type="search" placeholder="Ex: Maria da Silva" name="pac">
             </form>
         </li>
         <li>
             <form action="." method="GET">
-                <input type="search" name="date">
+                <input type="search" placeholder="Ex: 2022/12/01" name="date">
             </form>
         </li>
         <li>
             <form action="." method="GET">
-                <input type="search" name="scd">
+                <input type="search" placeholder="Ex: 00000" name="scd">
             </form>
         </li>
         <li>
@@ -65,7 +65,7 @@
                             </span>
                         </a></button>
                 </div>
-                <button type="submit"><a href="{%url 'transf_ges_view' transfer.id %}">
+                <button type="submit"><a href="{%url 'transf_ges_edit' transfer.id %}">
                         <span class="material-symbols-outlined">
                             edit_note
                         </span>
