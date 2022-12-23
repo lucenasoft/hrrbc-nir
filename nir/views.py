@@ -97,6 +97,7 @@ def dashboard_transf_view(request, id):
     transf = get_object_or_404(Transferencias_Adu, pk=id)
     return render(request, 'transf_view.html', context={
         'transf': transf,
+        'return_adu': True
     })
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -104,6 +105,7 @@ def ped_transf_view(request, id):
     transf = get_object_or_404(Transferencias_Ped, pk=id)
     return render(request, 'transf_view.html', context={
         'transf': transf,
+        'return_ped': True
     })
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -111,6 +113,7 @@ def ges_transf_view(request, id):
     transf = get_object_or_404(Transferencias_Ges, pk=id)
     return render(request, 'transf_view.html', context={
         'transf': transf,
+        'return_ges': True
     })
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -132,7 +135,8 @@ def dashboard_transf_new(request):
         return redirect(reverse('dashboard')) #LEMBRAR DE REDIRECIONAR PARA O CANTO DE CADA UM
     
     return render(request, 'new_transf.html', context= {
-        'form': form #CRIAR O TEMPLATE DAQUI
+        'form': form, #CRIAR O TEMPLATE DAQUI
+        'return_adu': True
     })
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -154,7 +158,8 @@ def ped_transf_new(request):
         return redirect(reverse('dashboard_ped')) #LEMBRAR DE REDIRECIONAR PARA O CANTO DE CADA UM
     
     return render(request, 'new_transf.html', context= {
-        'form': form #CRIAR O TEMPLATE DAQUI
+        'form': form, #CRIAR O TEMPLATE DAQUI
+        'return_ped': True
     })
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -176,7 +181,8 @@ def ges_transf_new(request):
         return redirect(reverse('dashboard_ges')) #LEMBRAR DE REDIRECIONAR PARA O CANTO DE CADA UM
     
     return render(request, 'new_transf.html', context= {
-        'form': form #CRIAR O TEMPLATE DAQUI
+        'form': form, #CRIAR O TEMPLATE DAQUI
+        'return_ges': True
     })
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -203,6 +209,7 @@ def dashboard_transf_edit(request, id):
     return render(request,'edit_transf.html', context={
         'transf': transf,
         'form': form,
+        'return_adu': True
     })
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -229,6 +236,7 @@ def ges_transf_edit(request, id):
     return render(request,'edit_transf.html', context={
         'transf': transf,
         'form': form,
+        'return_ges': True
     })
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -255,6 +263,7 @@ def ped_transf_edit(request, id):
     return render(request,'edit_transf.html', context={
         'transf': transf,
         'form': form,
+        'return_ped': True
     })
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -361,7 +370,7 @@ def dashboard_transf_ped_delete(request,id):
 
     transf.delete()
     messages.success(request, 'Transferência deletada com sucesso.')
-    return redirect(reverse('dashboard'))
+    return redirect(reverse('dashboard_ped'))
 
 @login_required(login_url='login', redirect_field_name='next')
 def dashboard_transf_ges_delete(request,id):
@@ -374,4 +383,4 @@ def dashboard_transf_ges_delete(request,id):
 
     transf.delete()
     messages.success(request, 'Transferência deletada com sucesso.')
-    return redirect(reverse('dashboard'))
+    return redirect(reverse('dashboard_ges'))

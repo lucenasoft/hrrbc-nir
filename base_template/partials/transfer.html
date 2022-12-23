@@ -1,6 +1,7 @@
 {% load static %}
 
 <div class="return-btn view">
+    {% if return_adu == True %}
     <form action="{%url 'dashboard' %}" method='POST'>
         {% csrf_token %}
         <input type="hidden" name="username" value="{{request.user.username}}">
@@ -8,6 +9,25 @@
             <img src="{% static 'arrow.svg' %}" alt="arrow-return">
         </button>
     </form>
+    {% endif %}
+    {% if return_ped == True %}
+    <form action="{%url 'dashboard_ped' %}" method='POST'>
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{request.user.username}}">
+        <button type="submit">
+            <img src="{% static 'arrow.svg' %}" alt="arrow-return">
+        </button>
+    </form>
+    {% endif %}
+    {% if return_ges == True %}
+    <form action="{%url 'dashboard_ges' %}" method='POST'>
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{request.user.username}}">
+        <button type="submit">
+            <img src="{% static 'arrow.svg' %}" alt="arrow-return">
+        </button>
+    </form>
+    {% endif %}
 </div>
 
 <div class="describs-called">

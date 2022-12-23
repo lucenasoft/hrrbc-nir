@@ -70,7 +70,7 @@
                             edit_note
                         </span>
                     </a></button>
-                <form class="btn-delete form-delete" action="{% url 'trasnf_delete' transfer.id %}" method='POST'>
+                <form class="btn-delete form-delete" action="{% url 'trasnf_ges_delete' transfer.id %}" method='POST'>
                     {% csrf_token %}
                     <button type="submit">
                         <span class="material-symbols-outlined">
