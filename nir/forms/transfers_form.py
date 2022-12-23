@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import CharField, DateTimeField, DateTimeInput
 
 from nir.models import (Transferencias_Adu, Transferencias_Ges,
                         Transferencias_Ped)
@@ -27,6 +28,24 @@ class FormAdul(forms.ModelForm):
             'contref':'Contrareferencia: ',
             'obs':'Obs: ',
         }
+        widgets = {
+            'date_reg_transf': forms.DateTimeInput(
+                attrs={
+                    'placeholder': 'Ex: 01/01/2022 00:00:00',
+                }
+            ),
+            'date_transf': forms.DateTimeInput(
+                attrs={
+                    'placeholder': 'Ex: 01/01/2022 00:00:00',
+                }
+            ),
+            'data_nasc': forms.DateInput(
+                attrs={
+                    'placeholder': 'Ex: 01/01/2022',
+                }
+            )
+        }
+
 
 class FormGes(forms.ModelForm):
     def __init__(self,*args, **kwargs):
@@ -51,6 +70,24 @@ class FormGes(forms.ModelForm):
             'contref':'Contrareferencia: ',
             'obs':'Obs: ',
         }
+
+        widgets = {
+            'date_reg_transf': forms.DateTimeInput(
+                attrs={
+                    'placeholder': 'Ex: 01/01/2022 00:00:00',
+                }
+            ),
+            'date_transf': forms.DateTimeInput(
+                attrs={
+                    'placeholder': 'Ex: 01/01/2022 00:00:00',
+                }
+            ),
+            'data_nasc': forms.DateInput(
+                attrs={
+                    'placeholder': 'Ex: 01/01/2022',
+                }
+            )
+        }
     
 class FormPed(forms.ModelForm):
     def __init__(self,*args, **kwargs):
@@ -74,4 +111,22 @@ class FormPed(forms.ModelForm):
             'local_ambul':'Local Ambulância: ',
             'contref':'Contrareferencia: ',
             'obs':'Obs: ',
+        }
+
+        widgets = {
+            'date_reg_transf': forms.DateTimeInput(
+                attrs={
+                    'placeholder': 'Ex: 01/01/2022 00:00:00',
+                }
+            ),
+            'date_transf': forms.DateTimeInput(
+                attrs={
+                    'placeholder': 'Ex: 01/01/2022 00:00:00',
+                }
+            ),
+            'data_nasc': forms.DateInput(
+                attrs={
+                    'placeholder': 'Ex: 01/01/2022',
+                }
+            )
         }
