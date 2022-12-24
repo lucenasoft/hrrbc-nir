@@ -31,7 +31,7 @@ Sistema para registro de paciêntes transferidos, com gerador de lavantamento e 
 - Search para cada campo no dashboard - X
 - Exportar todas as tabelas do banco em um unico arquivo - X
 - Excel por mês - X
-- Modificar campos de data - 
+- Modificar campos de data - X
 
 
 ## Atualizações obrigatórias

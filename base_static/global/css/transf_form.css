@@ -12,7 +12,10 @@
 }
 
 .container-form-edit form{
-    text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: column;
 }
 
 .container-form-edit input, select, label {
@@ -26,6 +29,10 @@
     background: #333333;
     color: white;
     padding: 5px;
+}
+
+.container-form-edit select {
+    width: 237px;
 }
 
 .container-form-edit textarea {
@@ -52,6 +59,7 @@
     border-radius: 5px;
     padding: 10px;
     padding-inline: 40px;
+    margin-top: 8px;
     background: #166285;
     cursor: pointer;
 }
