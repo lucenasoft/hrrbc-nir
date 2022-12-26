@@ -5,7 +5,7 @@
         <button type="submit"><a href="{%url 'transf_ges_new' %}">ADD</a></button>
         <form action="{%url 'export_xls' %}" method="POST">
             {% csrf_token %}
-            <input type="month" name="data_xls" id="data_xls">
+            <input type="date" name="data_xls" id="data_xls">
             <button type="submit"><span class="material-symbols-outlined">
                     export_notes
                 </span></button>

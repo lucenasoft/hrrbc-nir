@@ -281,13 +281,15 @@ def logout_view(request):
 def exportar_xls(request):
     if request.method == 'POST':
         date_xls_post = request.POST.get('data_xls')
+        day = (date_xls_post[8:10])
+        year = (date_xls_post[0:4])
         date_xls_post = str(date_xls_post[5:7]).strip('0')
     MDATA = datetime.now().strftime('%d-%m-%Y')
     filename = 'TRANSFERÊNCIAS ADULTOS.xls'
     _filename = filename.split('.')
     filename_final = f'{_filename[0]} {MDATA}.{_filename[1]}'
-    start = date(2022, int(date_xls_post), 1)
-    end = date(2022, int(date_xls_post), 31)
+    start = date(int(year), int(date_xls_post), 1)
+    end = date(int(year), int(date_xls_post), int(day))
     queryset = Transferencias_Adu.objects.filter(date_transf__range=[start, end]).values_list(
         'date_reg_transf', #0 - DATETIME
         'date_transf', #1 - DATETIME
@@ -306,7 +308,7 @@ def exportar_xls(request):
         'author__first_name',
         'author_reg', #15 - DATETIME
     )
-    queryset2 = Transferencias_Ped.objects.all().values_list(
+    queryset2 = Transferencias_Adu.objects.filter(date_transf__range=[start, end]).values_list(
         'date_reg_transf', #0 - DATETIME
         'date_transf', #1 - DATETIME
         'pac',
@@ -324,7 +326,7 @@ def exportar_xls(request):
         'author__first_name',
         'author_reg', #15 - DATETIME
     )
-    queryset3 = Transferencias_Ges.objects.all().values_list(
+    queryset3 = Transferencias_Adu.objects.filter(date_transf__range=[start, end]).values_list(
         'date_reg_transf', #0 - DATETIME
         'date_transf', #1 - DATETIME
         'pac',
