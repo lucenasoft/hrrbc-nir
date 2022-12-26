@@ -88,4 +88,23 @@ input[type=checkbox]{
 
 .search-title input{
     max-width: 150px;
+    margin-left: 15px;
+    display: flex;
+}
+
+.search-title button {
+   margin: auto;
+   margin-right: 15px;
+}
+
+.search-title span {
+    display: flex;
+}
+
+.search-title form {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
