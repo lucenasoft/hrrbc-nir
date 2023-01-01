@@ -308,7 +308,7 @@ def exportar_xls(request):
         'author__first_name',
         'author_reg', #15 - DATETIME
     )
-    queryset2 = Transferencias_Adu.objects.filter(date_transf__range=[start, end]).values_list(
+    queryset2 = Transferencias_Ped.objects.filter(date_transf__range=[start, end]).values_list(
         'date_reg_transf', #0 - DATETIME
         'date_transf', #1 - DATETIME
         'pac',
@@ -326,7 +326,7 @@ def exportar_xls(request):
         'author__first_name',
         'author_reg', #15 - DATETIME
     )
-    queryset3 = Transferencias_Adu.objects.filter(date_transf__range=[start, end]).values_list(
+    queryset3 = Transferencias_Ges.objects.filter(date_transf__range=[start, end]).values_list(
         'date_reg_transf', #0 - DATETIME
         'date_transf', #1 - DATETIME
         'pac',
