@@ -1,5 +1,5 @@
 const monthControl = document.querySelector('input[type="date"]');
-monthControl.value = '2022-01-01';
+monthControl.value = '2023-01-01';
 
 function my_scope() {
     const forms = document.querySelectorAll('.form-delete');
