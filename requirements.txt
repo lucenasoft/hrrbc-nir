@@ -1,0 +1,4 @@
+django
+django-decouple
+xlwt
+pillow
